@@ -10,5 +10,5 @@
 
 /*Protótipos das funções*/
 long double f ( long double x, long double y );
-long double y ( double x );
+long double y ( long double x );
 #endif

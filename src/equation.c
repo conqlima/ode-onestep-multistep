@@ -7,7 +7,7 @@ long double f ( long double x, long double y )
     return F ( x,y );
 }
 /*Definiçao da solução analitica da equação diferencial*/
-long double y ( double x )
+long double y ( long double x )
 {
     /*Insira o nome da macro que representa a função y(x) analítica que deseja calcular*/
     return Y ( x );

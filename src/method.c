@@ -2,9 +2,9 @@
 #include "include/method.h"
 
 //Definiçao do método de runge-kutta de 4a ordem
-double runge_kutta_4 ( double x, double y, double h )
+long double runge_kutta_4 ( long double x, long double y, double h )
 {
-    double k1, k2, k3, k4;
+    long double k1, k2, k3, k4;
     k1 = f ( x, y );
     k2 = f ( x + 0.5 * h, y + 0.5 * h * k1 );
     k3 = f ( x + 0.5 * h, y + 0.5 * h * k2 );
@@ -13,9 +13,9 @@ double runge_kutta_4 ( double x, double y, double h )
     return y;
 }
 //Definiçao do método de runge-kutta de 3a ordem
-double runge_kutta_3 ( double x, double y, double h )
+long double runge_kutta_3 ( long double x, long double y, double h )
 {
-    double k1, k2, k3;
+    long double k1, k2, k3;
     k1 = f ( x, y );
     k2 = f ( x + 0.5 * h, y + 0.5 * h * k1 );
     k3 = f ( x + h, y + 2.0 * h * k2 - h * k1 );
@@ -23,24 +23,24 @@ double runge_kutta_3 ( double x, double y, double h )
     return y;
 }
 //Definiçao do método de euler modificado (Runge-kutta 2a ordem)
-double euler_modificado ( double x, double y, double h )
+long double euler_modificado ( long double x, long double y, double h )
 {
-    double k1, k2;
+    long double k1, k2;
     k1 = f ( x, y );
     k2 = f ( x + 0.5 * h, y + 0.5 * h * k1 );
     y = y + h * k2;
     return y;
 }
 //Definiçao do método de euler (Runge-Kutta 1a ordem)
-double euler ( double x, double y, double h )
+long double euler ( long double x, long double y, double h )
 {
-    double k1;
+    long double k1;
     k1 = f ( x, y );
     y = y + h * k1;
     return y;
 }
 //Definição da equação de Dormand-Prince
-long double dopri ( double x, long double y, double h )
+long double dopri ( long double x, long double y, double h )
 {
     long double k1, k2, k3, k4, k5, k6;
     k1 = h*f ( x,y );
@@ -53,7 +53,7 @@ long double dopri ( double x, long double y, double h )
     return y;
 }
 //Definição da equação de Adams-Bashforth-Moulton de 4ª ordem
-long double abm4 ( double x, long double y[], double h )
+long double abm4 ( long double x, long double y[], double h )
 {
     long double f0, f1, f2, f3, f4;
     long double yp;
