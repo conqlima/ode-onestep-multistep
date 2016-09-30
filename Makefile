@@ -33,4 +33,4 @@ method.o: src/method.c src/include/method.h
 limpa:
 	-rm -f src/*.o core
 
-reconstroi: limpa MeuProg
+reconstroi: limpa main

@@ -7,37 +7,38 @@
 #include "include/equation.h"
 #include "include/util.h"
 
-//#define P 0.0
 static FILE *fp;
-//FILE* fq;
+
+static void print(long double y)
+{
+
+	fprintf(fp, "%.4Le\t", y);
+}
+
+static void aux()
+{
+	
+}
 
 void control ( double x0, double y0, int m, double b, char* s, char* nome )
 {
-	//FILE *fp;
     unsigned int i = 0;
-    //unsigned long long j = 0.0;
     long double xn = x0;
-    double h = ( b - x0 ) /m;
-    //long double p = 0.0;
-    long double yv[4] = {y0,y0,y0,y0};    
-    long double yx,y_e, y_em, y_rk3, y_rk4, y_dp, y_abm4;
-    y_e = y_em = y_rk3 = y_rk4 = y_dp = y_abm4 = y0;    
+    /*Calcula o tamanho do passo*/
+    double h = ( b - x0 ) / m;
+    long double yv[4] = {y0,y0,y0,y0};
+    long double yx,y_e, y_em, y_rk3, y_rk4, y_dp, y_abm4, y_mil, y_ham;
+    y_e = y_em = y_rk3 = y_rk4 = y_dp = y_abm4 = y_mil = y_ham = y0;    
     if (((fp = fopen ( nome, "w" )) == NULL) || (s == NULL))
 		{
 			fprintf(stderr, "não posso abrir ou criar o arquivo %s",nome);
 			exit(EXIT_SUCCESS);
 		}
 	else
-    //fq = fopen ( "erro", "w" );
-    for ( i = 0; xn < b+h ; xn = xn + h,i++ )
+	{
+    for ( i = 0; i <= m; xn = xn + h,i++ )
     {
         print(xn);
-        //fprintf(fp, "%.4Le \t ",xn);
-        
-        //print(xn,y_e,y_em,y_rk3,y_rk4,y_dp,y_abm4,yx,p);
-        //fprintf ( fp, "%f \t %.30Le \t %.30Le \t %.30Le \t %.30Le \t %.30Le \t %.30Le \t %.30Le \n", xn, y_e, y_em, y_rk3, y_rk4, y_dp, y_abm4, yx);
-        //fprintf ( fp, "%f \t %.4Le \t %.4Le \t %.4Le \t %.4Le \t %.4Le \t %.4Le \t %.4Le \n", xn, y_e, y_em, y_rk3, y_rk4, y_dp, y_abm4, y ( xn ) );
-        //fprintf ( fq, "%f \t %.20Le \t %.20Le \t %.20Le \t %.20Le \t %.20Le \t %.20Le \t %.20Le \n", xn,  fabsl ( ( yx - y_e ) ), fabsl ( ( yx - y_em ) ), fabsl ( ( yx - y_rk3 ) ), fabsl ( ( yx - y_rk4 ) ), fabsl ( ( yx - y_dp ) ), fabsl ( ( yx - y_abm4 ) ),fabsl ( ( yx - yx ) ) );
         strstr ( s,"e" ) != NULL ? print(y_e),( y_e = euler ( xn, y_e, h ) ) : ( y_e = 0 ) ;
         strstr ( s,"rk2" ) != NULL ? print(y_em),( y_em = euler_modificado ( xn, y_em, h ) ) : ( y_em = 0 ) ;
         strstr ( s,"rk3" ) != NULL ? print(y_rk3),( y_rk3 = runge_kutta_3 ( xn, y_rk3, h ) ) : ( y_rk3 = 0 ) ;
@@ -46,6 +47,9 @@ void control ( double x0, double y0, int m, double b, char* s, char* nome )
         if ( strstr ( s,"abm4" ) != NULL )
         {
 			print(y_abm4);
+			/*O método abm4 necessita de 4 valores anteriores já
+			 * calculado por outro método para funcionar, aqui usamos
+			 * o método de dopri para calcular esses valores*/
             if ( xn < 4*h+x0 )
             {
                 y_abm4 = dopri ( xn, y_abm4, h );
@@ -63,12 +67,13 @@ void control ( double x0, double y0, int m, double b, char* s, char* nome )
         }
         else
         y_abm4 = 0;
-        yx = y ( xn ); 
+        /*Solução Exata da função y(x)*/
+        yx = y ( xn );
         print(yx);
         fprintf(fp,"\n");
     }
+	}
     (void)fclose ( fp );
-    //fclose ( fq );
     //scrip_gnuplot ( nome );
     //system ( "gnuplot script.plt" );
 }
@@ -87,37 +92,4 @@ void control ( double x0, double y0, int m, double b, char* s, char* nome )
     //fprintf ( fp, "replot \n" );
     //fprintf ( fp, "pause -1 \"Continuar?\" " );
     //fclose ( fp );
-//}
-static void print(long double y)
-{
-	//long double y;
-	//va_list argumentos;
-	//va_start (argumentos,x);	
-	//fp = fopen ( "robson", "w" );
-    //fq = fopen ( "erro", "w" );
-	//if (x == 0)
-	//fprintf(fp,"%f\t",x);
-	//while((y = va_arg(argumentos,long double)) != 0.0)
-	fprintf(fp, "%.4Le \t ",y);
-	//fprintf(fp,"\n");
-	//va_end(argumentos);
-	//fclose ( fp );
-    //fclose ( fq );	
-}
-
-//static void print(double x, ...)
-//{
-	//long double y;
-	//va_list argumentos;
-	//va_start (argumentos,x);	
-	////fp = fopen ( "robson", "w" );
-    ////fq = fopen ( "erro", "w" );
-	////if (x == 0)
-	////fprintf(fp,"%f\t",x);
-	//while((y = va_arg(argumentos,long double)) != 0.0)
-	//fprintf(fp, "%.4Le \t ",y);
-	////fprintf(fp,"\n");
-	//va_end(argumentos);
-	////fclose ( fp );
-    ////fclose ( fq );	
 //}

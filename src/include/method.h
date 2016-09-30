@@ -7,4 +7,6 @@ long double runge_kutta_4 ( long double x, long double y, double h );
 long double runge_kutta_3 ( long double x, long double y, double h );
 long double euler_modificado ( long double x, long double y, double h );
 long double euler ( long double x, long double y, double h );
+long double hamming ( long double x, long double y[], double h );
+long double milne ( long double x, long double y[], double h );
 #endif

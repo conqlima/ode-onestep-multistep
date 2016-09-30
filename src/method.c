@@ -69,6 +69,33 @@ long double abm4 ( long double x, long double y[], double h )
     return yp;
 }
 
+long double milne ( long double x, long double y[], double h )
+{
+	long double f0, f1, f2, f3, f4;
+	long double yp;
+	f0 = f ( x-3.0*h,y[0] );
+	f1 = f ( x-2.0*h,y[1] );
+	f2 = f ( x-1.0*h,y[2] );
+	f3 = f ( x,y[3] );
+	yp = y[0] + ((4.0*h)/3.0)*(2*f3 - f2 + 2*f1);
+	f4 = f(x+h,yp);
+	yp = y[2] + (h/3)*(f4 + 4*f3 + f2);
+	return yp;
+}
+
+long double hamming ( long double x, long double y[], double h )
+{
+	long double f0, f1, f2, f3, f4;
+	long double yp;
+	f0 = f ( x-3.0*h,y[0] );
+	f1 = f ( x-2.0*h,y[1] );
+	f2 = f ( x-1.0*h,y[2] );
+	f3 = f ( x,y[3] );
+	yp = y[0] + ((4.0*h)/3.0)*(2.0*f3 - f2 + 2.0*f1);
+	f4 = f(x+h,yp);
+	yp = (1.0/8.0)*(9*y[3] - y[1]) + ((3.0*h)/8.0)*(f4 + 2*f3 - f2);
+	return yp;
+}
 /*
 //Definição da equação de Adams-Bashforth-Moulton de 4ª ordem
 long double abm4 ( double x, long double y[], double h )
@@ -95,7 +122,6 @@ long double abm4 ( double x, long double y[], double h )
     //long double erro = fabsl(yc-yp)*19.0/270.0;
     return yc;
 }*/
-
 
 
 /*
