@@ -21,10 +21,10 @@ EXECUTAVEL=main
 $(EXECUTAVEL): $(OBJETOS)
 	$(COMP) $(OPCOES_LINK) $(OBJETOS) -o $@ -lm
 
-util.o: src/util.c src/include/util.h
+util.o: src/util.c src/include/headers.h
 	$(COMP) $(OPCOES_COMP) util.c -o util.o
 
-equation.o: src/equation.c src/include/equation.h
+equation.o: src/equation.c src/include/headers.h
 	$(COMP) $(OPCOES_COMP) equation.c -o equation.o -lm
 
 method.o: src/method.c src/include/method.h
