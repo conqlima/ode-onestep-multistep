@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include "include/util.h"
-//#include "include/equation.h"
 #include "include/headers.h"
 #include "include/method.h"
 

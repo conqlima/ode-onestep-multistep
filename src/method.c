@@ -1,4 +1,4 @@
-#include "include/equation.h"
+#include "include/headers.h"
 #include "include/method.h"
 
 //Definiçao do método de runge-kutta de 4a ordem

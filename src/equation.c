@@ -1,6 +1,6 @@
 #include <math.h>
 #include "include/headers.h"
-//#include "include/equation.h"
+
 /*Definição da equação diferencial: dy/dx=f(x,y)*/
 long double f ( long double x, long double y )
 {
